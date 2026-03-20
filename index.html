@@ -61,7 +61,7 @@
 
     <script>
         function getChampions() {
-            fetch("https://51.137.17.249/teams")
+            fetch("/api/teams")
                 .then(response => response.json())
                 .then(data => displayData(data))
                 .catch(error => {
