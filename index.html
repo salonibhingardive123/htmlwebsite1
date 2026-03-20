@@ -5,49 +5,88 @@
     <title>Football App</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-align: center;
-            margin-top: 60px;
-            background-color: #f5f5f5;
+            margin: 0;
+            padding-top: 80px;
+            /* Using a high-res football stadium image with a dark overlay for readability */
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_md/f_auto/primary/rvgg1pzokkgyasiuwqie');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            min-height: 100vh;
         }
 
         h1 {
-            color: #333;
+            font-size: 3rem;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
         }
 
         button {
-            padding: 12px 25px;
+            padding: 15px 30px;
             margin: 10px;
-            font-size: 16px;
+            font-size: 18px;
+            font-weight: bold;
             cursor: pointer;
-            border: none;
-            border-radius: 8px;
+            border: 2px solid transparent;
+            border-radius: 50px; /* Rounded pill shape */
             background-color: #0078D4;
             color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         button:hover {
             background-color: #005a9e;
+            transform: translateY(-3px);
+            border-color: white;
         }
 
         #result {
-            margin-top: 30px;
+            margin-top: 40px;
             padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
         }
 
+        /* Modern Glass effect for the cards */
         .card {
-            background: white;
-            margin: 10px auto;
-            padding: 15px;
-            width: 300px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            width: 280px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .card h3 {
+            margin: 0;
+            color: #ffcc00; /* Gold color for team names */
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            font-size: 1rem;
+            opacity: 0.8;
         }
     </style>
 </head>
 <body>
 
-    <h1>Hi & Welcome, choose one!</h1>
+    <h1>🏆 Champions Glory</h1>
 
     <button onclick="getChampions()">
         Champions League
@@ -61,12 +100,14 @@
 
     <script>
         function getChampions() {
+            // REMINDER: Keep using the Proxy path if you set up staticwebapp.config.json
+            // Use fetch("/api/teams") if the proxy is active!
             fetch("https://51.137.17.249/teams")
                 .then(response => response.json())
                 .then(data => displayData(data))
                 .catch(error => {
                     document.getElementById("result").innerHTML =
-                        "<p style='color:red;'>Error fetching data</p>";
+                        "<div class='card' style='border-color:red;'><p style='color:#ff6666;'>Error fetching data. Check your SSL/CORS settings.</p></div>";
                     console.error(error);
                 });
         }
@@ -77,22 +118,20 @@
                 .then(data => displayData(data))
                 .catch(error => {
                     document.getElementById("result").innerHTML =
-                        "<p style='color:red;'>Premier League not configured yet</p>";
+                        "<div class='card'><p>Premier League not configured yet</p></div>";
                 });
         }
 
         function displayData(data) {
             let output = "";
-
             data.forEach(item => {
                 output += `
                     <div class="card">
                         <h3>${item.name}</h3>
-                        <p>ID: ${item.id}</p>
+                        <p>Team ID: ${item.id}</p>
                     </div>
                 `;
             });
-
             document.getElementById("result").innerHTML = output;
         }
     </script>
