@@ -102,7 +102,7 @@
         function getChampions() {
             // REMINDER: Keep using the Proxy path if you set up staticwebapp.config.json
             // Use fetch("/api/teams") if the proxy is active!
-            fetch("https://51.137.17.249/teams")
+            fetch("https://api.salonibb.in/teams")
                 .then(response => response.json())
                 .then(data => displayData(data))
                 .catch(error => {
