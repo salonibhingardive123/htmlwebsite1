@@ -118,7 +118,7 @@
                 .then(data => displayData(data))
                 .catch(error => {
                     document.getElementById("result").innerHTML =
-                        "<div class='card'><p>Premier League not configured yet</p></div>";
+                        "<div class='card' style='border-color:red;'><p style='color:#ff6666;'>Error fetching data. Check your SSL/CORS settings.</p></div>";
                 });
         }
 
