@@ -113,7 +113,7 @@
         }
 
         function getPremier() {
-            fetch("XYZaddurl")
+            fetch("https://api.salonibb.in/premier")
                 .then(response => response.json())
                 .then(data => displayData(data))
                 .catch(error => {
